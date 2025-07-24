@@ -22,12 +22,15 @@
 
 **LEVIR-CD**：
 
+## Results Taken Away：
 
+LEVIR-CD(ckpt)：https://drive.google.com/file/d/1vs4lhq1GWriMPAo9tMxbjYbxQ4aykQw5/view?usp=drive_link
+
+SYSU-CD(ckpt)：https://drive.google.com/file/d/1rXUzNjvas4z8jEBDayNDHiz7i_AAJ2sW/view?usp=drive_link
 
 ## Citation:
 
 If you use this code for your research, please cite our papers.
-
 
 
 
