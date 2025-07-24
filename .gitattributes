@@ -1,3 +1,4 @@
 saved_model/LEVIR-CD/best_levir.pth filter=lfs diff=lfs merge=lfs -text
 saved_model/SYSU/best_sysu.pth filter=lfs diff=lfs merge=lfs -text
 saved_model/​**​/*.pth filter=lfs diff=lfs merge=lfs -text
+*.pth filter=lfs diff=lfs merge=lfs -text
