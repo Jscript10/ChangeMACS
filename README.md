@@ -7,12 +7,8 @@
 ​                                                                            Wuhan University
 
 ------
+<img width="2967" height="1388" alt="3" src="https://github.com/user-attachments/assets/ceacf346-e702-446b-a24d-d207f5e173bd" />
 
-![image-20250724140414184](C:\Users\11954\AppData\Roaming\Typora\typora-user-images\image-20250724140414184.png)
-
-![image-20250724140436189](C:\Users\11954\AppData\Roaming\Typora\typora-user-images\image-20250724140436189.png)
-
-![image-20250724140446158](C:\Users\11954\AppData\Roaming\Typora\typora-user-images\image-20250724140446158.png)
 
 ## **Environment Setup:**
 
