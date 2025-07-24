@@ -30,15 +30,4 @@ If you use this code for your research, please cite our papers.
 
 
 
-`[@INPROCEEDINGS{ChangeMACS,
-  author={Kaixuan Jiang, Chen Wu},
-  booktitle={IGARSS 2025 - 2025 IEEE International Geoscience and Remote Sensing Symposium}, 
-  title={ChangeMACS：A Mamba-Based Attention Guided and Contrastive Similarity Learning Network for Remote Sensing Change Detection}, 
-  year={2025},
-  volume={},
-  number={},
-  pages={},
-  }]()`
-
-
 
