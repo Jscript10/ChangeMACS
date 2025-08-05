@@ -41,17 +41,18 @@ If you use the code or performance benchmarks of this project in your research, 
 ```bibtex
 @ARTICLE{jkx,
   author={Kaixuan Jiang, Chen Wu},
-  journal={IEEE Transactions on Geoscience and Remote Sensing},
+  journal={IEEE xxx},
   title={ChangeMACS：A Mamba-Based Attention Guided and Contrastive Similarity Learning Network for Remote Sensing Change Detection},
   year={2025},
-  volume={63},
+  volume={xx},
   number={},
-  pages={1-16},
+  pages={xx},
   keywords={Feature extraction; Transformers; Remote sensing; Convolutional neural networks; Visualization},
-  doi={10.1109/TGRS.2025.3545012}
+  doi={...}
 }
 ```
 
 ## Acknowledgments:
 
 This project is based on Nd-BiMamba2([paper](https://arxiv.org/abs/2411.15380), [code](https://github.com/Human9000/nd-Mamba2-torch)). Thanks for their excellent works!!
+
