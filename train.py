@@ -10,11 +10,10 @@ from tqdm import tqdm
 from data_utils import LoadDatasetFromFolder_CD, calMetric_iou,Compute_Precision,Compute_Recall
 import numpy as np
 import random
-from cdmodel.AchangeCoMa import UNet as CDNet
-from loss.BCL1 import BCL
+from OurMethod.ChangeMACS import UNet as CDNet
+from loss.BCL import BCL
 import pandas as pd
 import itertools
-from Ametrics import Evaluator
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 # set seeds
@@ -27,7 +26,6 @@ def seed_torch(seed=2024):
 seed_torch(2024)
 
 if __name__ == '__main__':
-    evaluator = Evaluator(num_class=2)
     mloss = 0
     i = 1
     # load data
@@ -102,8 +100,6 @@ if __name__ == '__main__':
 
                 masks = CDNet(image1,image2)
 
-                evaluator.add_batch(label, masks)
-
                 # calculate IoU
                 gt_value = (label > 0).float()
                 prob = (masks > 1).float()
@@ -133,15 +129,6 @@ if __name__ == '__main__':
                 val_bar.set_description(
                     desc='IoU: %.4f' % ( valing_results['IoU'],
                     ))
-        #另一个评价指标
-        f1_score = evaluator.Pixel_F1_score()
-        oa = evaluator.Pixel_Accuracy()
-        rec = evaluator.Pixel_Recall_Rate()
-        pre = evaluator.Pixel_Precision_Rate()
-        iou = evaluator.Intersection_over_Union()
-        kc = evaluator.Kappa_coefficient()
-        print(f'Racall rate is {rec}, Precision rate is {pre}, OA is {oa}, '
-              f'F1 score is {f1_score}, IoU is {iou}, Kappa coefficient is {kc}')
 
         # save model parameters
         val_loss = valing_results['IoU']
@@ -157,10 +144,8 @@ if __name__ == '__main__':
             rec_str = "%.4f" % valing_results['REC']
             f1_str = "%.4f" % valing_results['F1']
             iou_str = "%.4f" % valing_results['IoU']
-            oa_str = "%.4f" % oa
-            kc_str = "%.4f" % kc
-            filename = args.model_dir + 'netCD_epoch_%d_pre_%s_rec_%s_f1_%s_iou_%s_OA_%s_KC_%s.pth' % (
-                epoch, pre_str, rec_str, f1_str, iou_str, oa_str, kc_str)
+            filename = args.model_dir + 'netCD_epoch_%d_pre_%s_rec_%s_f1_%s_iou_%s.pth' % (
+                epoch, pre_str, rec_str, f1_str, iou_str)
             torch.save(CDNet.state_dict(), filename)
 
         results['train_SR'].append(running_results['SR_loss'] / running_results['batch_sizes'])
