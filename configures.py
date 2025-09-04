@@ -17,13 +17,7 @@ parser.add_argument('--lr', type=float, default=0.000125, help='initial learning
 parser.add_argument('--w_cd', type=float, default=0.001, help='factor to balance the weight of CD loss in Generator loss')
 parser.add_argument('--scale', default=8, type=int, help='resolution difference between images. [ 2| 4| 8]')
 parser.add_argument("--resume", type=str, default=None, help="load resume")
-parser.add_argument("--model_type", type=str, default="vit_b", help="sam model_type")  # vit_b      vit_h
-parser.add_argument("--sam_checkpoint", type=str, default="models/sam_vit_b_01ec64.pth",help="sam checkpoint")  # sam_vit_b_01ec64.pth
-parser.add_argument("--encoder_adapter", type=bool, default=True, help="use adapter")
-parser.add_argument("--point_list", type=list, default=[1, 3, 5, 9], help="point_list")
-parser.add_argument("--iter_point", type=int, default=8, help="point iterations")
 parser.add_argument('--device', type=str, default='cuda')
-parser.add_argument("--metrics", nargs='+', default=['iou', 'dice'], help="metrics")
 # path for loading data from folder    /home/jiang/SRCD/data
 
 #cdd
