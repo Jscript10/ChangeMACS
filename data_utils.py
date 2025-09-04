@@ -12,9 +12,6 @@ import cv2
 from utils import train_transforms, get_boxes_from_mask, init_point_sampling
 import os
 
-
-
-
 def is_image_file(filename):
     return any(filename.endswith(extension) for extension in ['.png', '.jpg', '.jpeg', '.PNG', '.JPG', '.JPEG'])
 
