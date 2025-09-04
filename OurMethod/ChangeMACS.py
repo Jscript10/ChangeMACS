@@ -1,14 +1,14 @@
 import torch
 from torch import nn
 import torch.nn.functional as F
-from cdmodel.encoderRes import build_backbone  as encoder
-from cdmodel.deco import build_decoder as decoder
-from cdmodel.conv import DepthwiseSeparableConvolution as dwconv
+from OurMethod.encoderRes import build_backbone  as encoder
+from OurMethod.deco import build_decoder as decoder
+from OurMethod.conv import DepthwiseSeparableConvolution as dwconv
 import warnings
 # Suppress specific UserWarnings related to ONNX
 warnings.filterwarnings("ignore", category=UserWarning, message=".*Constant folding.*")
-from cdmodel.ex_bi_mamba2 import BiMamba2_2D
-from cdmodel.DCM import DCM
+from OurMethod.ex_bi_mamba2 import BiMamba2_2D
+from OurMethod.CSLM import DCM
 #double conv
 class double_conv(nn.Module):
     def __init__(self, in_ch, out_ch):
@@ -41,9 +41,9 @@ class decat(nn.Module):
         x = self.conv2d(x)
         return x
 
-class VSSB(nn.Module):
+class MBAM(nn.Module):
     def __init__(self, in_channels, out_channels):
-        super(VSSB, self).__init__()
+        super(MBAM, self).__init__()
         self.linear1 = nn.Conv2d(in_channels, out_channels, kernel_size=1, stride=1, padding=0)
         self.dw = dwconv(out_channels,out_channels)
         self.ssm = BiMamba2_2D(out_channels, out_channels, 32)
@@ -59,12 +59,6 @@ class VSSB(nn.Module):
         output1 = self.sigmoid(self.conv4(output1))
         return output1*x + x
 
-# if __name__ == "__main__":
-#     net = VSSB(16,16) #.to('cuda')#USE IT WHEN SEE SUMMARY
-#     x = torch.randn(2, 16, 32, 32)
-#     z1 =net(x)
-#     print(z1.shape)
-
 class UNet(nn.Module):
     def __init__(self, ):
         super(UNet, self).__init__()
@@ -72,10 +66,10 @@ class UNet(nn.Module):
         self.encoder = encoder('resnet34', 32, nn.BatchNorm2d, 3)
         self.decoder = decoder(1, nn.BatchNorm2d)
 
-        self.MAlayer1 = VSSB(64, 64)
-        self.MAlayer2 = VSSB(128, 128)
-        self.MAlayer3 = VSSB(256, 256)
-        self.MAlayer4 = VSSB(512, 512)
+        self.MAlayer1 = MBAM(64, 64)
+        self.MAlayer2 = MBAM(128, 128)
+        self.MAlayer3 = MBAM(256, 256)
+        self.MAlayer4 = MBAM(512, 512)
 
         self.DCM1 = DCM(64)
         self.DCM2 = DCM(128)
