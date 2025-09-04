@@ -26,38 +26,6 @@ parser.add_argument('--device', type=str, default='cuda')
 parser.add_argument("--metrics", nargs='+', default=['iou', 'dice'], help="metrics")
 # path for loading data from folder    /home/jiang/SRCD/data
 
-#lcd train test
-parser.add_argument('--hr1_train', default='CDdata/LEVIR/test1/time1', type=str, help='hr image at t1 in training set')
-parser.add_argument('--hr2_train', default='CDdata/LEVIR/test1/time2', type=str, help='hr image at t2 in training set')
-parser.add_argument('--lab_train', default='CDdata/LEVIR/test1/label', type=str, help='label image in training set')
-#parser.add_argument('--lab_train2', default='LEVIR/train/labelinverse', type=str, help='label image in training set')
-
-parser.add_argument('--hr1_val', default='CDdata/LEVIR/test1/time1', type=str, help='hr image at t1 in validation set')
-parser.add_argument('--hr2_val', default='CDdata/LEVIR/test1/time2', type=str, help='hr image at t2 in validation set')
-parser.add_argument('--lab_val', default='CDdata/LEVIR/test1/label', type=str, help='label image in validation set')
-
-#WHU
-# parser.add_argument('--hr1_train', default='WHU/DataNormal/train/time1', type=str, help='hr image at t1 in training set')
-# parser.add_argument('--hr2_train', default='WHU/DataNormal/train/time2', type=str, help='hr image at t2 in training set')
-# parser.add_argument('--lab_train', default='WHU/DataNormal/train/label', type=str, help='label image in training set')
-# parser.add_argument('--lab_train2', default='WHU/DataNormal/train/labelinverse', type=str, help='label image in training set')
-
-# parser.add_argument('--hr1_train', default='WHU/DataSeg/train/time1', type=str, help='hr image at t1 in training set')
-# parser.add_argument('--hr2_train', default='WHU/DataSeg/train/time2', type=str, help='hr image at t2 in training set')
-# parser.add_argument('--lab_train', default='WHU/DataSeg/train/label', type=str, help='label image in training set')
-# parser.add_argument('--lab_train2', default='WHU/DataSeg/train/labelinverse', type=str, help='label image in training set')
-#
-# parser.add_argument('--hr1_val', default='WHU/DataNormal/test/time1', type=str, help='hr image at t1 in validation set')
-# #parser.add_argument('--lr2_val', default='WHU/DataNormal/test/time2_lr/X4', type=str, help='lr image at t2 in validation set')
-# parser.add_argument('--hr2_val', default='WHU/DataNormal/test/time2', type=str, help='hr image at t2 in validation set')
-# parser.add_argument('--lab_val', default='WHU/DataNormal/test/label', type=str, help='label image in validation set')
-
-#
-# parser.add_argument('--hr1_val', default='WHU/DataSeg/val/time1', type=str, help='hr image at t1 in validation set')
-# parser.add_argument('--lr2_val', default='WHU/DataSeg/val/time2_lr/X4', type=str, help='lr image at t2 in validation set')
-# parser.add_argument('--hr2_val', default='WHU/DataSeg/val/time2', type=str, help='hr image at t2 in validation set')
-# parser.add_argument('--lab_val', default='WHU/DataSeg/val/label', type=str, help='label image in validation set')
-
 #cdd
 # parser.add_argument('--hr1_train', default='CDD/train/time1', type=str, help='hr image at t1 in training set')
 # parser.add_argument('--hr2_train', default='CDD/train/time2', type=str, help='hr image at t2 in training set')
@@ -68,35 +36,10 @@ parser.add_argument('--lab_val', default='CDdata/LEVIR/test1/label', type=str, h
 # parser.add_argument('--lab_val', default='CDD/val/label', type=str, help='label image in validation set')
 
 # # #test
-# parser.add_argument('--hr1_test', default='LEVIR/test/time1', type=str, help='hr image at t1 in validation set')
-# parser.add_argument('--hr2_test', default='LEVIR/test/time2', type=str, help='hr image at t2 in validation set')
-# parser.add_argument('--lab_test', default='LEVIR/test/label', type=str, help='label image in vn validation set')
-# # #
-#
-# parser.add_argument('--hr1_test', default='LEVIR/test1/time1', type=str, help='hr image at t1 in validation set')
-# parser.add_argument('--hr2_test', default='LEVIR/test1/time2', type=str, help='hr image at t2 in validation set')
-# parser.add_argument('--lab_test', default='LEVIR/test1/label', type=str, help='label image in vn validation set')
-
 parser.add_argument('--hr1_test', default='CDdata/LEVIR/test/time1', type=str, help='hr image at t1 in validation set')
 parser.add_argument('--hr2_test', default='CDdata/LEVIR/test/time2', type=str, help='hr image at t2 in validation set')
 parser.add_argument('--lab_test', default='CDdata/LEVIR/test/label', type=str, help='label image in vn validation set')
-# # #
-#sysu
-# parser.add_argument('--hr1_test', default='SYSU/test2/time1', type=str, help='hr image at t1 in validation set')
-# parser.add_argument('--hr2_test', default='SYSU/test2/time2', type=str, help='hr image at t2 in validation set')
-# parser.add_argument('--lab_test', default='SYSU/test2/label', type=str, help='label image in vn validation set')
 
-# parser.add_argument('--hr1_test', default='CDD/test/time1', type=str, help='hr image at t1 in validation set')
-# parser.add_argument('--hr2_test', default='CDD/test/time2', type=str, help='hr image at t2 in validation set')
-# parser.add_argument('--lab_test', default='CDD/test/label', type=str, help='label image in vn validation set')
-# test test1
-# parser.add_argument('--hr1_test', default='BCDD/test/time1', type=str, help='hr image at t1 in validation set')
-# parser.add_argument('--hr2_test', default='BCDD/test/time2', type=str, help='hr image at t2 in validation set')
-# parser.add_argument('--lab_test', default='BCDD/test/label', type=str, help='label image in vn validation set')
-
-# parser.add_argument('--hr1_test', default='WHU/DataNormal/test/time1', type=str, help='hr image at t1 in validation set')
-# parser.add_argument('--hr2_test', default='WHU/DataNormal/test/time2', type=str, help='hr image at t2 in validation set')
-# parser.add_argument('--lab_test', default='WHU/DataNormal/test/label', type=str, help='label image in vn validation set')
 
 # network saving and loading parameters
 parser.add_argument('--model_dir', default='epoch/levircd/samcd/', type=str, help='save path for CD model ')
