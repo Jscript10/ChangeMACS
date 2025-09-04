@@ -1,13 +1,9 @@
-import os
-import glob
 from tqdm import tqdm
-import cv2
 import torch.utils.data
 from torch.utils.data import DataLoader
 import numpy as np
 from configures import parser
 #from model2.dsamnet import DSAMNet as UNet
-from cdmodel.AchangeCoMa import UNet
 from data_utils import LoadDatasetFromFolder_CD, calMetric_iou,Compute_Precision,Compute_Recall
 
 if __name__ == "__main__":
@@ -36,26 +32,13 @@ if __name__ == "__main__":
             hr_img2 = hr_img2.to(device, dtype=torch.float)
             label = label.to(device, dtype=torch.float)
             label = torch.argmax(label, 1).unsqueeze(1).float()
-
-            # 创建批次输入
-            batched_input = {
-                "image1": hr_img1,  # 随机生成的图像1
-                "image2": hr_img2,  # 随机生成的图像2
-                "mask_inputs": None,  # 随机生成的掩码
-                "point_coords": None,
-                "point_labels": None
-            }
             masks = net(hr_img1, hr_img2)
-            #masks = net(batched_input)
-            #dist,b,c = net(hr_img1, hr_img2) #dsma
-            # calculate IoU
             gt_value = (label > 0).float()
             prob = (masks > 1).float()
             prob = prob.cpu().detach().numpy()
             gt_value = gt_value.cpu().detach().numpy()
             gt_value = np.squeeze(gt_value)
             result = np.squeeze(prob)
-            #intr, unn = calMetric_iou(gt_value, result)
             intr, unn = calMetric_iou(result, gt_value)
             inter = inter + intr
             unin = unin + unn
@@ -71,17 +54,11 @@ if __name__ == "__main__":
             valing_results['REC'] = (inter2 * 1.0 / unin2)
             valing_results['PRE'] = (inter1 * 1.0 / unin1)
             valing_results['F1'] = (2 * (valing_results['PRE'] * valing_results['REC']) / (valing_results['PRE'] + valing_results['REC']))
-
             valing_results['IoU'] = (inter * 1.0 / unin)
-            #输出每个阶段
-            #print("pre=",valing_results['PRE'],"rec=",valing_results['REC'],"f1=",valing_results['F1'],"IOu=",valing_results['IoU'])
-
             val_bar.set_description(
                 desc=' IoU:%.4f' % (
                     valing_results['IoU'])
             )
 
-    # save model2 parameters
     val_loss = valing_results['IoU']
     print(valing_results)
-    # results['val_IoU'].append(valing_results['IoU'])
