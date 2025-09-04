@@ -1,7 +1,7 @@
 import argparse
 
 #training options
-parser = argparse.ArgumentParser(description='Train SRCDNet')
+parser = argparse.ArgumentParser(description='Train CDNet')
 
 # training parameters
 parser.add_argument('--num_epochs', default=300, type=int, help='train epoch number')
@@ -18,7 +18,7 @@ parser.add_argument('--w_cd', type=float, default=0.001, help='factor to balance
 parser.add_argument('--scale', default=8, type=int, help='resolution difference between images. [ 2| 4| 8]')
 parser.add_argument("--resume", type=str, default=None, help="load resume")
 parser.add_argument('--device', type=str, default='cuda')
-# path for loading data from folder    /home/jiang/SRCD/data
+
 
 #cdd
 # parser.add_argument('--hr1_train', default='CDD/train/time1', type=str, help='hr image at t1 in training set')
