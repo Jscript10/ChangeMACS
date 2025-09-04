@@ -4,37 +4,22 @@ import torch.nn as nn
 def compute_pixelwise_similarity(x, y):
     """
     计算每个像素位置上每个通道的相似度，并返回增强后的张量。
-
     参数:
     - x, y: 输入张量，形状为 [1, C, H, W]
-
     返回:
     - sim_x, sim_y: 增强相似部分的张量
     - diff_x, diff_y: 增强不同部分的张量
     """
     assert x.shape == y.shape, "Input tensors must have the same shape."
-
-    # 获取张量的形状
     batch_size, channels, height, width = x.shape
-
-    # 计算余弦相似度
-    # 通过将通道维度保持并在每个像素上计算相似度
     x_flat = x.view(batch_size, channels, -1)  # [1, C, H*W]
     y_flat = y.view(batch_size, channels, -1)  # [1, C, H*W]
-
-    # 计算每个像素位置的余弦相似度
     dot_product = torch.sum(x_flat * y_flat, dim=1, keepdim=True)  # [1, 1, H*W]
     norm_x = torch.norm(x_flat, dim=1, keepdim=True)  # [1, 1, H*W]
     norm_y = torch.norm(y_flat, dim=1, keepdim=True)  # [1, 1, H*W]
     similarity = dot_product / (norm_x * norm_y + 1e-8)  # [1, 1, H*W]
-
-    # 将相似度重新调整到 [1, C, H, W] 的形状
     similarity = similarity.view(batch_size, 1, height, width)  # [1, 1, H, W]
-
-    # 将相似度归一化到 [0, 1]
     similarity = (similarity + 1) / 2  # 归一化到 [0, 1]
-
-    # 计算相似的权重和不相似的权重
     similar_weight = similarity  # a
     dissimilar_weight = 1 - similarity  # 1 - a
 
