@@ -3,7 +3,6 @@ import torch.nn.functional as F
 from einops import rearrange
 from torch import nn
 
-
 class TwoLayerConv2d(nn.Sequential):
     def __init__(self, in_channels, out_channels, kernel_size=3):
         super().__init__(nn.Conv2d(in_channels, in_channels, kernel_size=kernel_size,
@@ -90,27 +89,22 @@ class Cross_Attention(nn.Module):
         q, k, v = map(lambda t: rearrange(t, 'b n (h d) -> b h n d', h = h), [q,k,v])
 
         dots = torch.einsum('bhid,bhjd->bhij', q, k) * self.scale
-        mask_value = -torch.finfo(dots.dtype).max   #dtype 返回数据元素的数据类型（int、float等）
-                                                    #torch.finfo是一个对象，它表示浮点torch.dtype的数字属性。
-                                                    #max() 方法返回给定参数的最大值，参数可以为序列。
+        mask_value = -torch.finfo(dots.dtype).max
         if mask is not None:
             mask = F.pad(mask.flatten(1), (1, 0), value = True)
             assert mask.shape[-1] == dots.shape[-1], 'mask has incorrect dimensions'
             mask = mask[:, None, :] * mask[:, :, None]
-            dots.masked_fill_(~mask, mask_value)      #将mask_value用于填充与~mask中值为1具有相同索引的dots
-            del mask                      #del删除的是变量，而不是数据
+            dots.masked_fill_(~mask, mask_value)
+            del mask
 
         if self.softmax:
             attn = dots.softmax(dim=-1)
         else:
             attn = dots
-        # attn = dots
-        # vis_tmp(dots)
 
         out = torch.einsum('bhij,bhjd->bhid', attn, v)
         out = rearrange(out, 'b h n d -> b n (h d)')
         out = self.to_out(out)
-        # vis_tmp2(out)
 
         return out
 
@@ -137,20 +131,17 @@ class Attention(nn.Module):
         mask_value = -torch.finfo(dots.dtype).max
 
         if mask is not None:
-            mask = F.pad(mask.flatten(1), (1, 0), value = True)     #flatten()是对多维数据的降维函数  F.pad是pytorch内置的tensor扩充函数，便于对数据集图像或中间层特征进行维度扩充
+            mask = F.pad(mask.flatten(1), (1, 0), value = True)
             assert mask.shape[-1] == dots.shape[-1], 'mask has incorrect dimensions'
             mask = mask[:, None, :] * mask[:, :, None]
             dots.masked_fill_(~mask, mask_value)
             del mask
 
         attn = dots.softmax(dim=-1)
-
-
         out = torch.einsum('bhij,bhjd->bhid', attn, v)
         out = rearrange(out, 'b h n d -> b n (h d)')
         out = self.to_out(out)
         return out
-
 
 class Transformer(nn.Module):
     def __init__(self, dim, depth, heads, dim_head, mlp_dim, dropout):
@@ -167,7 +158,6 @@ class Transformer(nn.Module):
             x = ff(x)
         return x
 
-
 class TransformerDecoder(nn.Module):
     def __init__(self, dim, depth, heads, dim_head, mlp_dim, dropout, softmax=True):
         super().__init__()
@@ -180,7 +170,6 @@ class TransformerDecoder(nn.Module):
                 Residual(PreNorm(dim, FeedForward(dim, mlp_dim, dropout = dropout)))
             ]))
     def forward(self, x, m, mask = None):
-        """target(query), memory"""
         for attn, ff in self.layers:
             x = attn(x, m, mask = mask)
             x = ff(x)
