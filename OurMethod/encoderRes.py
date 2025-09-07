@@ -236,11 +236,10 @@ class ResNet(nn.Module):
         state_dict.update(model_dict)
         self.load_state_dict(state_dict)
 if __name__ == "__main__":
-    x = torch.randn(1, 3, 256, 256)
-    y = torch.randn(1, 3, 256, 256)
+    x = torch.randn(1, 3, 64, 64)
+    y = torch.randn(1, 3, 64, 64)
     net1 = ResNet(BasicBlock, [2, 2, 2, 2], 32,nn.BatchNorm2d)
     x1,x2,x3,x4 = net1(x)
-    #print(net1)
     print(x1.shape)
 def build_backbone(backbone, output_stride, BatchNorm, in_c=3):
     if backbone == 'resnet50':
