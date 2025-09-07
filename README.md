@@ -26,9 +26,9 @@
 
 We also provide the trained model weights on two benchmark datasets. They can be directly downloaded and used without retraining.
 
-LEVIR-CD(ckpt)：[GDrive](https://drive.google.com/file/d/1vs4lhq1GWriMPAo9tMxbjYbxQ4aykQw5/view?usp=drive_link)
+LEVIR-CD(ckpt)：[GDrive](https://drive.google.com/file/d/1-ozT252xqgQYVi8p-n26Y4F7T76OZU1e/view?usp=sharing)
 
-SYSU-CD(ckpt)：[GDrive](https://drive.google.com/file/d/1rXUzNjvas4z8jEBDayNDHiz7i_AAJ2sW/view?usp=drive_link)
+SYSU-CD(ckpt)：[GDrive](https://drive.google.com/file/d/1uE4TmAZIf5M8NW1AhzyWIPXu73KdzpRQ/view?usp=sharing)
 
 ## Citation:
 
