@@ -1,14 +1,14 @@
 import torch
 from torch import nn
 import torch.nn.functional as F
-from OurMethod.encoderRes import build_backbone  as encoder
-from OurMethod.deco import build_decoder as decoder
-from OurMethod.conv import DepthwiseSeparableConvolution as dwconv
+from cdmodel.encoderRes import build_backbone  as encoder
+from cdmodel.deco import build_decoder as decoder
+from cdmodel.conv import DepthwiseSeparableConvolution as dwconv
 import warnings
 # Suppress specific UserWarnings related to ONNX
 warnings.filterwarnings("ignore", category=UserWarning, message=".*Constant folding.*")
-from OurMethod.ex_bi_mamba2 import BiMamba2_2D
-from OurMethod.CSLM import DCM
+from cdmodel.ex_bi_mamba2 import BiMamba2_2D
+from cdmodel.CSLM import DCM
 #double conv
 class double_conv(nn.Module):
     def __init__(self, in_ch, out_ch):
@@ -130,8 +130,8 @@ if __name__ == "__main__":
     z1 =net(x,y)
     print(z1.shape)
 
-    from thop import profile
-    from thop import clever_format
-    flops, params = profile(net, inputs=(x, y))
-    print("FLOPs=" + str(flops / 1000 ** 3) + 'G')
-    print("FLOPs=" + str(params / 1000 ** 2) + 'M')
+    # from thop import profile
+    # from thop import clever_format
+    # flops, params = profile(net, inputs=(x, y))
+    # print("FLOPs=" + str(flops / 1000 ** 3) + 'G')
+    # print("FLOPs=" + str(params / 1000 ** 2) + 'M')
